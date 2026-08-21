@@ -67,7 +67,11 @@
     spin();
   }
 
+  var started = false;
+
   function start() {
+    if (started) return;
+    started = true;
     // при перезагрузке браузер восстанавливает позицию видео с прошлого раза,
     // и прикус «заканчивался» ещё до того, как начался
     try { video.currentTime = 0; } catch (e) {}
@@ -89,6 +93,10 @@
       document.removeEventListener('visibilitychange', onShow);
       start();
     });
+    // Если браузер почему-то так и не скажет, что страницу показали,
+    // стартуем сами: проиграть анимацию мимо зрителя не страшно,
+    // а вот навсегда застрять на экране загрузки — страшно.
+    setTimeout(start, 8000);
   } else {
     start();
   }
