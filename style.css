@@ -1,0 +1,200 @@
+/* ═══════════════ токены ═══════════════ */
+:root{
+  /* ровно тот же цвет запечён в фон видео — снят с декодированного кадра */
+  --mint:#E6F5F3;
+  --ink:#0C3D42;
+  --sub:#4E7C82;
+  --teal:#0B7C7A;
+
+  --glass:rgba(255,255,255,.26);
+  --edge:rgba(255,255,255,.8);
+  --lift:0 14px 32px -18px rgba(11,61,66,.55), inset 0 1px 0 rgba(255,255,255,.9);
+
+  /* если Google Fonts не доехал, подставляем именно рукописные:
+     ui-rounded здесь был ошибкой — это округлый гротеск, а не пропись */
+  --script:"Sacramento","Snell Roundhand","Segoe Script","Brush Script MT",cursive;
+  --sans:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --ease:cubic-bezier(.65,.02,.24,1);
+  --pad:14px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;background:#D8F2F0}
+
+body{
+  background:#D8F2F0;
+  min-height:100dvh;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+body.is-loading{overflow:hidden;height:100dvh}
+body.is-ready:not(.is-settled){overflow:hidden}
+img,svg,video,canvas{display:block;max-width:100%}
+a{color:inherit;text-decoration:none;-webkit-user-select:none;user-select:none}
+
+/* ═══════════════ фон ═══════════════ */
+.sea{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.sea i{position:absolute;border-radius:50%;filter:blur(38px)}
+.sea .s1{width:92vw;height:92vw;top:-30vw;left:-26vw;background:radial-gradient(circle,#1FCFC6,transparent 64%)}
+.sea .s2{width:98vw;height:98vw;bottom:-32vw;right:-32vw;background:radial-gradient(circle,#FF74A8,transparent 64%)}
+.sea .s3{width:70vw;height:70vw;top:38%;right:-22vw;background:radial-gradient(circle,#39E0D6,transparent 66%)}
+.sea .s4{width:66vw;height:66vw;top:56%;left:-24vw;background:radial-gradient(circle,#FFA9CB,transparent 66%)}
+
+.caustics{
+  position:absolute;inset:-25%;opacity:.45;
+  background:
+    radial-gradient(closest-side at 28% 34%,rgba(255,255,255,.55),transparent 70%),
+    radial-gradient(closest-side at 72% 62%,rgba(255,255,255,.4),transparent 70%),
+    radial-gradient(closest-side at 52% 12%,rgba(255,255,255,.32),transparent 70%),
+    radial-gradient(closest-side at 40% 86%,rgba(255,255,255,.3),transparent 70%);
+  filter:blur(26px);
+  animation:drift 22s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  0%{transform:translate3d(-3%,-2%,0) scale(1)}
+  50%{transform:translate3d(2%,3%,0) scale(1.07)}
+  100%{transform:translate3d(-1%,2%,0) scale(1.02)}
+}
+
+/* ═══════════════ пролёт ═══════════════
+   губы разгоняются на зрителя и растворяются, а из глубины,
+   из-за них, к нам вылетает страница. Общая точка схода — .scene. */
+.scene{
+  position:relative;z-index:1;
+  perspective:1100px;perspective-origin:50% 42%;
+}
+
+.stage{
+  position:absolute;top:0;left:0;right:0;height:100dvh;z-index:5;
+  background:var(--mint);overflow:hidden;
+}
+body.is-ready .stage{
+  animation:flyPast .85s cubic-bezier(.42,0,.66,.16) forwards;
+  pointer-events:none;
+}
+@keyframes flyPast{
+  0%{opacity:1;transform:translateZ(0);filter:blur(0)}
+  50%{opacity:.85}
+  100%{opacity:0;transform:translateZ(760px);filter:blur(26px);visibility:hidden}
+}
+
+.stage__media{
+  position:absolute;left:50%;top:50%;
+  width:min(178vw,720px);aspect-ratio:16/9;
+  transform:translate(-50%,-58%);
+}
+.stage__media video,
+.stage__media canvas{position:absolute;inset:0;width:100%;height:100%}
+
+.page{opacity:0}
+body.is-ready .page{
+  animation:flyIn 1.05s cubic-bezier(.15,.82,.28,1) .26s both;
+}
+/* после пролёта снимаем трансформ совсем: он рвёт backdrop-filter у плиток */
+body.is-settled .page{animation:none;opacity:1;transform:none;filter:none}
+body.is-settled .stage{display:none}
+@keyframes flyIn{
+  0%{opacity:0;transform:translateZ(-1050px);filter:blur(15px)}
+  38%{opacity:1}
+  100%{opacity:1;transform:translateZ(0);filter:blur(0)}
+}
+
+/* ═══════════════ фото ═══════════════
+   низ кадра растворяется в фоне страницы — стыка не видно */
+.hero{position:relative;margin-bottom:-4px}
+.hero__photo{
+  height:min(66dvh,540px);
+  background:
+    url("assets/hero.jpg") center 22% / cover no-repeat,
+    linear-gradient(168deg,#7FCDC6 0%,#B9C7D6 38%,#EFC4D3 68%,#D6EDE7 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 72%,transparent 100%);
+          mask-image:linear-gradient(to bottom,#000 0,#000 72%,transparent 100%);
+}
+/* мягкое затемнение под подпись, гаснет вместе с фото */
+.hero__photo::after{
+  content:"";position:absolute;inset:46% 0 0;
+  background:linear-gradient(to bottom,transparent,rgba(11,45,49,.2) 58%,rgba(11,45,49,.26));
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 72%,transparent 100%);
+          mask-image:linear-gradient(to bottom,#000 0,#000 72%,transparent 100%);
+}
+
+.hero__cap{
+  position:absolute;left:0;right:0;bottom:9%;
+  padding:0 20px;text-align:center;
+}
+.hero__name{
+  font-family:var(--script);font-weight:400;
+  font-size:clamp(56px,19vw,84px);line-height:.86;
+  margin:0;
+  background-image:linear-gradient(100deg,#0B7C7A 0%,#123F45 44%,#C2557F 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  /* text-shadow сквозь background-clip не проходит, поэтому drop-shadow */
+  filter:drop-shadow(0 1px 10px rgba(255,255,255,.7));
+}
+
+/* ═══════════════ страница ═══════════════ */
+.page{width:min(100%,460px);margin:0 auto;padding:0 0 calc(env(safe-area-inset-bottom,0px) + 36px)}
+
+/* ═══════════════ бенто ═══════════════ */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 var(--pad)}
+.tile{
+  position:relative;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:120px;padding:16px;border-radius:24px;
+  background:var(--glass);
+  border:1px solid var(--edge);
+  box-shadow:var(--lift);
+  -webkit-backdrop-filter:blur(16px) saturate(170%);
+          backdrop-filter:blur(16px) saturate(170%);
+  transition:transform .18s var(--ease);
+}
+.tile:active{transform:scale(.975)}
+.tile--wide{
+  grid-column:1/-1;min-height:0;
+  flex-direction:row;align-items:center;gap:14px;padding:18px;
+}
+
+.tile--ig{background:rgba(255,209,228,.34)}
+.tile--yt{background:rgba(206,245,242,.36)}
+.tile--vk{background:rgba(183,236,232,.36)}
+.tile--wa{background:rgba(255,190,216,.34)}
+.tile--tg{
+  background:rgba(12,61,66,.84);color:#fff;border-color:rgba(255,255,255,.2);
+  box-shadow:0 18px 36px -20px rgba(11,61,66,.85), inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+.tile__ic{
+  width:36px;height:36px;flex:none;display:grid;place-items:center;
+  border-radius:12px;background:rgba(255,255,255,.6);color:var(--teal);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+.tile--tg .tile__ic{background:rgba(255,255,255,.14);color:#7FE6DE;box-shadow:none}
+.tile__ic svg{width:19px;height:19px;fill:currentColor}
+
+.tile__body{min-width:0}
+.tile--wide .tile__body{flex:1}
+.tile__title{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.005em}
+.tile__sub{display:block;font-size:11.5px;color:var(--sub);margin-top:2px}
+.tile--tg .tile__sub{color:rgba(255,255,255,.58)}
+
+.tile__go{position:absolute;top:14px;right:14px;color:rgba(12,61,66,.3)}
+.tile--wide .tile__go{position:static;color:rgba(255,255,255,.45)}
+.tile__go svg{width:16px;height:16px}
+
+.credit{
+  margin:30px 0 0;text-align:center;
+  font-size:9.5px;letter-spacing:.13em;
+  color:rgba(12,61,66,.28);
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important}
+  .page{opacity:1}
+}

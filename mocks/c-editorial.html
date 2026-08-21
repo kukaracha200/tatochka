@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>C — Редакция</title>
+<link rel="stylesheet" href="mock.css">
+<style>
+:root{--ink:#12363B;--sub:#7E9A9E;--rule:#F3D9E3;--mint:#DCF4F0}
+body{background:#FFFDFD;color:var(--ink)}
+
+.stage{background:var(--mint);border-radius:0 0 44px 44px;overflow:hidden;padding:16px 0 26px}
+.stage .lips{width:86%;margin:0 auto}
+
+.wrap{padding:0 22px 40px}
+
+.name{font-family:var(--serif);font-size:52px;line-height:.95;font-weight:600;margin:26px 0 0;letter-spacing:-.03em}
+.meta{display:flex;align-items:center;gap:10px;margin:14px 0 0}
+.meta span{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#0E9E9C;font-weight:700}
+.meta hr{flex:1;height:1px;border:0;background:var(--rule);margin:0}
+.bio{margin:16px 0 30px;font-size:14.5px;color:var(--sub);max-width:24em}
+
+.rows{border-top:1px solid var(--rule)}
+.r{display:flex;align-items:center;gap:14px;padding:19px 2px;border-bottom:1px solid var(--rule);position:relative}
+.r__n{font-size:10px;letter-spacing:.1em;color:#BFD9D8;font-variant-numeric:tabular-nums;width:20px;flex:none}
+.r__t{flex:1;min-width:0}
+.r__t b{display:block;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.r__t i{display:block;font-style:normal;font-size:12px;color:var(--sub);margin-top:2px}
+.r__ic{width:20px;height:20px;flex:none;color:#0E9E9C}
+.r__ic svg{width:20px;height:20px;fill:currentColor}
+.r__go{color:#CBDEDD}
+.r__go svg{width:16px;height:16px}
+.r--main{background:var(--ink);color:#fff;margin:0 -22px;padding:22px;border:0}
+.r--main .r__n{color:rgba(255,255,255,.4)}
+.r--main .r__ic{color:#5EE3DC}
+.r--main .r__t i{color:rgba(255,255,255,.55)}
+.r--main .r__go{color:rgba(255,255,255,.45)}
+
+.foot{margin-top:30px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#C3D6D6}
+</style></head>
+<body>
+
+<div class="stage">
+  <div class="lips"><video src="../assets/lips.mp4" muted playsinline autoplay preload="auto" disablepictureinpicture aria-hidden="true"></video><canvas width="1152" height="648" aria-hidden="true"></canvas></div>
+</div>
+
+<div class="wrap">
+  <h1 class="name">Лера</h1>
+  <div class="meta"><span>@lera</span><hr></div>
+  <p class="bio">Снимаю, показываю, рассказываю</p>
+
+  <div class="rows">
+    <a class="r r--main" href="#"><span class="r__n">→</span><span class="r__t"><b>Telegram</b><i>основной канал</i></span><span class="r__ic"><svg viewBox="0 0 24 24"><use href="#i-tg"/></svg></span></a>
+    <a class="r" href="#"><span class="r__n">01</span><span class="r__t"><b>Instagram</b><i>фото и сторис</i></span><span class="r__ic"><svg viewBox="0 0 24 24"><use href="#i-ig"/></svg></span><span class="r__go"><svg viewBox="0 0 24 24"><use href="#i-out"/></svg></span></a>
+    <a class="r" href="#"><span class="r__n">02</span><span class="r__t"><b>YouTube</b><i>длинные видео</i></span><span class="r__ic"><svg viewBox="0 0 24 24"><use href="#i-yt"/></svg></span><span class="r__go"><svg viewBox="0 0 24 24"><use href="#i-out"/></svg></span></a>
+    <a class="r" href="#"><span class="r__n">03</span><span class="r__t"><b>ВКонтакте</b><i>страница</i></span><span class="r__ic"><svg viewBox="0 0 24 24"><use href="#i-vk"/></svg></span><span class="r__go"><svg viewBox="0 0 24 24"><use href="#i-out"/></svg></span></a>
+    <a class="r" href="#"><span class="r__n">04</span><span class="r__t"><b>WhatsApp</b><i>написать напрямую</i></span><span class="r__ic"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span><span class="r__go"><svg viewBox="0 0 24 24"><use href="#i-out"/></svg></span></a>
+  </div>
+
+  <p class="foot">@lera</p>
+</div>
+<script src="icons.js"></script>
+<script src="lips.js"></script>
+</body></html>
