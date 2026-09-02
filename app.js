@@ -100,4 +100,86 @@
   } else {
     start();
   }
+
+  /* ═══ карточка PUBG ═══ */
+  var modal = document.getElementById('pubg');
+  var opener = null;
+
+  function openModal() {
+    opener = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var x = modal.querySelector('.modal__x');
+    if (x) x.focus();
+  }
+  function closeModal() {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (opener && opener.focus) opener.focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-open="pubg"]')) { openModal(); return; }
+    if (e.target.closest('[data-close]')) { closeModal(); return; }
+
+    var btn = e.target.closest('[data-copy]');
+    if (!btn) return;
+
+    var node = document.getElementById(btn.dataset.copy);
+    var label = btn.querySelector('span');
+    var icon = btn.querySelector('use');
+    var was = label.textContent;
+
+    copy(node.textContent.trim()).then(function (ok) {
+      if (ok) {
+        label.textContent = 'скопировано';
+        icon.setAttribute('href', '#i-check');
+        btn.classList.add('is-done');
+      } else {
+        // Встроенные браузеры соцсетей копирование иногда запрещают вовсе.
+        // Молча ничего не делать нельзя — выделяем текст, чтобы человек
+        // взял его сам долгим нажатием.
+        label.textContent = 'выдели и скопируй';
+        btn.classList.add('is-failed');
+        var r = document.createRange();
+        r.selectNodeContents(node);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(r);
+      }
+      setTimeout(function () {
+        label.textContent = was;
+        icon.setAttribute('href', '#i-copy');
+        btn.classList.remove('is-done', 'is-failed');
+      }, ok ? 1600 : 3000);
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.hidden) closeModal();
+  });
+
+  /* Clipboard API живёт только в защищённом контексте, а встроенные
+     браузеры соцсетей его порой и вовсе не дают — отсюда запасной путь
+     через временное поле и execCommand. */
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(function () { return true; },
+                                                      function () { return legacy(text); });
+    }
+    return Promise.resolve(legacy(text));
+  }
+  function legacy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    return ok;
+  }
 })();
