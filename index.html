@@ -10,11 +10,12 @@
 <meta property="og:title" content="tatochka">
 <meta property="og:description" content="Все ссылки в одном месте.">
 <meta property="og:image" content="assets/hero.jpg">
-<link rel="icon" href="assets/lips.webp">
+<link rel="icon" href="assets/icon.png?v=1">
+<link rel="apple-touch-icon" href="assets/icon.png?v=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sacramento&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body class="is-loading">
 
@@ -159,23 +160,11 @@
   <defs>
     <g id="i-tg"><path d="M21.6 4.2 2.6 11.5c-1.1.4-1.1 2 .1 2.3l4.7 1.4 1.8 5.4c.3.9 1.4 1.1 2 .4l2.4-2.6 4.7 3.4c.7.5 1.8.1 2-.8l3.2-15c.2-1-.8-1.9-1.9-1.8zM9.5 14.7l8.4-5.4-6.8 6.3-.3 3.3z"/></g>
     <g id="i-tt"><path d="M16.9 5.8A4.5 4.5 0 0 1 15.8 3h-3.2v12.6a2.6 2.6 0 1 1-1.9-2.5V9.9a5.9 5.9 0 1 0 5.1 5.8V9.1a7.5 7.5 0 0 0 4.3 1.4V7.3a4.4 4.4 0 0 1-3.2-1.5z"/></g>
-    <!-- Шлем третьего уровня в три четверти. Нарисован в сетке 100×100 и
-         ужат до 24 — так проще держать пропорции. Швы между бронеплитами
-         и смотровая щель вырезаны маской, а не залиты цветом: на цветной
-         плитке заливка выдала бы себя прямоугольником чужого оттенка. -->
-    <mask id="m-pubg" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
-      <rect width="100" height="100" fill="#000"/>
-      <ellipse cx="52" cy="42" rx="34" ry="34" fill="#fff"/>
-      <path fill="#fff" d="M30 26 12 40c-5 4-6 10-4 16l6 20c2 6 7 9 13 9h20c7 0 12-5 12-12V38z"/>
-      <path fill="#fff" d="M70 58l13 5-4 21-14-4z"/>
-      <path fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"
-            d="M32 28C23 35 18 43 17 52"/>
-      <rect x="16" y="42" width="34" height="13" rx="3" fill="#000"
-            transform="rotate(-8 33 48)"/>
-      <path fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"
-            d="M19 64C29 70 40 72 52 70"/>
-    </mask>
-    <g id="i-pubg" transform="scale(.24)"><rect width="100" height="100" mask="url(#m-pubg)"/></g>
+    <!-- Шлем третьего уровня. Не нарисован от руки, а обведён по контуру
+         с исходной картинки: marching squares по альфа-каналу плюс
+         упрощение Дугласа-Пекера. Сетка 100×100, ужата до 24.
+         Швы и заклёпки — дырки по evenodd, а не заливка. -->
+    <g id="i-pubg" transform="scale(.24)"><path fill-rule="evenodd" d="M21.3 26.0 27.5 26.1 37.2 28.1 52.6 34.0 60.9 38.7 75.4 50.2 79.5 52.5 80.9 54.0 81.2 55.5 79.9 57.0 77.0 56.5 74.7 55.2 73.5 56.0 61.5 84.0 60.2 86.5 57.6 88.6 53.5 89.7 48.3 89.7 45.4 89.1 21.0 77.1 9.5 72.8 6.5 72.8 6.7 74.5 9.7 76.9 18.1 80.5 17.0 82.8 16.0 83.0 7.2 79.1 2.6 75.4 2.1 74.5 2.4 71.1 6.7 63.2 0.1 56.0 -0.1 52.6 1.8 50.0 4.9 48.8 8.0 40.4 6.4 37.7 6.4 36.1 7.1 34.8 9.7 32.6 15.1 31.5 19.2 31.7 34.1 35.3 44.0 39.2 50.3 42.3 56.7 45.9 63.7 50.9 64.9 50.3 64.9 49.4 60.5 45.9 51.2 40.3 43.6 36.7 32.1 32.4 17.8 29.2 18.2 28.0 19.6 26.5 21.3 26.0ZM53.6 10.4 63.0 10.3 67.9 10.9 75.6 13.4 81.0 16.6 83.1 15.9 86.6 18.7 86.3 21.0 89.1 23.9 93.3 30.2 96.5 37.0 98.8 44.5 100.1 53.7 100.1 61.2 95.1 61.2 95.8 69.8 98.4 70.5 98.8 71.1 97.0 75.4 92.1 79.8 87.1 81.8 81.3 82.1 74.3 80.2 71.3 78.7 69.0 76.5 76.6 58.9 80.4 59.0 82.7 57.1 83.4 54.9 82.2 52.0 77.4 49.1 70.9 43.0 64.3 38.0 50.8 30.1 45.4 27.9 37.0 25.4 25.4 23.9 27.4 21.2 30.9 18.2 38.4 13.9 47.0 11.2 53.6 10.4ZM6.1 53.8 4.3 54.3 4.0 55.5 5.1 57.6 8.4 60.6 11.1 59.7 14.4 59.5 23.0 61.3 30.5 64.0 39.1 68.1 48.8 73.9 53.5 77.8 55.1 77.5 56.1 76.3 55.6 74.9 48.5 68.7 35.7 61.3 28.4 58.4 20.3 55.9 12.9 54.3 6.1 53.8ZM13.3 36.0 11.5 36.7 10.5 37.9 10.3 40.2 6.8 49.3 12.0 49.5 22.6 51.6 32.7 55.0 40.4 58.6 41.2 58.5 45.9 47.4 45.9 46.3 44.7 45.0 38.8 41.9 28.9 38.3 19.9 36.2 13.3 36.0ZM97.2 63.2 99.2 63.4 99.3 68.7 97.6 68.2 97.2 63.2ZM55.5 52.0 54.3 53.0 55.1 54.5 56.0 54.5 56.8 53.7 56.8 53.0 55.5 52.0ZM77.9 53.4 77.1 54.9 78.6 55.9 79.6 55.1 79.6 54.2 78.8 53.4 77.9 53.4ZM52.1 59.5 51.4 59.8 51.4 61.6 53.3 61.7 53.6 60.5 52.1 59.5Z"/></g>
     <g id="i-out"><path d="M8 16 16 8M9.5 8H16v6.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></g>
     <g id="i-card"><path d="M5 6h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm0 4h14M8 14h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
     <g id="i-copy"><path d="M9 9V6.5A1.5 1.5 0 0 1 10.5 5h7A1.5 1.5 0 0 1 19 6.5v7a1.5 1.5 0 0 1-1.5 1.5H15M6.5 9h7A1.5 1.5 0 0 1 15 10.5v7A1.5 1.5 0 0 1 13.5 19h-7A1.5 1.5 0 0 1 5 17.5v-7A1.5 1.5 0 0 1 6.5 9z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></g>
@@ -185,6 +174,6 @@
   </defs>
 </svg>
 
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
