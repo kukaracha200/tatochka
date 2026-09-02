@@ -106,31 +106,31 @@ body.is-settled .stage{display:none}
 
 /* ═══════════════ фото ═══════════════
    низ кадра растворяется в фоне страницы — стыка не видно */
-.hero{position:relative;margin-bottom:-4px}
+.hero{position:relative;margin-bottom:8px}
 .hero__photo{
-  height:min(66dvh,540px);
+  height:min(76dvh,640px);
   background:
     url("assets/hero.jpg") center 22% / cover no-repeat,
     linear-gradient(168deg,#7FCDC6 0%,#B9C7D6 38%,#EFC4D3 68%,#D6EDE7 100%);
-  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 72%,transparent 100%);
-          mask-image:linear-gradient(to bottom,#000 0,#000 72%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 54%,transparent 100%);
+          mask-image:linear-gradient(to bottom,#000 0,#000 54%,transparent 100%);
 }
 /* мягкое затемнение под подпись, гаснет вместе с фото */
 .hero__photo::after{
-  content:"";position:absolute;inset:46% 0 0;
+  content:"";position:absolute;inset:40% 0 0;
   background:linear-gradient(to bottom,transparent,rgba(11,45,49,.2) 58%,rgba(11,45,49,.26));
-  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 72%,transparent 100%);
-          mask-image:linear-gradient(to bottom,#000 0,#000 72%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 54%,transparent 100%);
+          mask-image:linear-gradient(to bottom,#000 0,#000 54%,transparent 100%);
 }
 
 .hero__cap{
-  position:absolute;left:0;right:0;bottom:9%;
+  position:absolute;left:0;right:0;bottom:4%;
   padding:0 20px;text-align:center;
 }
 .hero__name{
   font-family:var(--script);font-weight:400;
-  font-size:clamp(56px,19vw,84px);line-height:.86;
-  margin:0;
+  font-size:clamp(56px,19vw,84px);line-height:1.22;
+  margin:0;padding:.14em 0 .06em;
   background-image:linear-gradient(100deg,#0B7C7A 0%,#123F45 44%,#C2557F 100%);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
@@ -280,3 +280,10 @@ body.is-settled .stage{display:none}
 .row__copy.is-done{background:#0B7C7A}
 .row__copy.is-failed{background:#9B4A6B;font-size:10px}
 .row__copy.is-failed svg{display:none}
+
+.modal__card--soon .modal__note{margin-bottom:20px;max-width:30ch}
+.modal__ok{
+  width:100%;padding:13px;border:0;border-radius:15px;cursor:pointer;
+  background:var(--ink);color:#fff;font:inherit;font-size:14px;font-weight:600;
+}
+.modal__ok:active{background:#0A3237}

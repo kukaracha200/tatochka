@@ -67,14 +67,16 @@
         <span class="tile__go"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-out"></use></svg></span>
       </a>
 
-      <a class="tile tile--chat" href="https://t.me/psikhushkaa" target="_blank" rel="noopener">
+      <!-- Пока заглушка вместо ссылки. Вернуть беседу — заменить кнопку
+           обратно на <a href="https://t.me/psikhushkaa" target="_blank"> -->
+      <button class="tile tile--chat" type="button" data-open="soon">
         <span class="tile__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tg"></use></svg></span>
         <span class="tile__body">
           <span class="tile__title">Болталка</span>
-          <span class="tile__sub">беседа в телеграме</span>
+          <span class="tile__sub">скоро откроется</span>
         </span>
-        <span class="tile__go"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-out"></use></svg></span>
-      </a>
+        <span class="tile__go"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"></use></svg></span>
+      </button>
 
       <a class="tile tile--tt" href="https://www.tiktok.com/@tata_ruu" target="_blank" rel="noopener">
         <span class="tile__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tt"></use></svg></span>
@@ -136,27 +138,49 @@
 </div>
 
 
+<!-- ── заглушка «Болталки» ── -->
+<div class="modal" id="soon" hidden>
+  <div class="modal__back" data-close></div>
+  <div class="modal__card modal__card--soon" role="dialog" aria-modal="true" aria-labelledby="soonTitle">
+    <button class="modal__x" type="button" data-close aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"></use></svg>
+    </button>
+
+    <span class="modal__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"></use></svg></span>
+    <h2 class="modal__title" id="soonTitle">Пока закрыто</h2>
+    <p class="modal__note">Правила чата ещё не придумали. А пока их нет,
+      там официально разрешено вообще всё — и это, если честно, слишком
+      опасно выпускать в люди.</p>
+    <button class="modal__ok" type="button" data-close>Ладно, подожду</button>
+  </div>
+</div>
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <g id="i-tg"><path d="M21.6 4.2 2.6 11.5c-1.1.4-1.1 2 .1 2.3l4.7 1.4 1.8 5.4c.3.9 1.4 1.1 2 .4l2.4-2.6 4.7 3.4c.7.5 1.8.1 2-.8l3.2-15c.2-1-.8-1.9-1.9-1.8zM9.5 14.7l8.4-5.4-6.8 6.3-.3 3.3z"/></g>
     <g id="i-tt"><path d="M16.9 5.8A4.5 4.5 0 0 1 15.8 3h-3.2v12.6a2.6 2.6 0 1 1-1.9-2.5V9.9a5.9 5.9 0 1 0 5.1 5.8V9.1a7.5 7.5 0 0 0 4.3 1.4V7.3a4.4 4.4 0 0 1-3.2-1.5z"/></g>
-    <!-- Шлем третьего уровня в три четверти. Собран из фигур с маской:
-         щель должна быть настоящей дыркой, иначе на цветных плитках
-         она выдаёт себя прямоугольником чужого цвета. -->
-    <mask id="m-pubg" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-      <rect width="24" height="24" fill="#000"/>
-      <circle cx="13.1" cy="9.9" r="7.5" fill="#fff"/>
-      <rect x="3.4" y="9" width="9.2" height="9.6" rx="2.3" fill="#fff"
-            transform="rotate(-10 8 13.8)"/>
-      <path d="M15.9 13.8l3.3 1.1-1 4-3.2-1z" fill="#fff"/>
-      <rect x="4.9" y="10.9" width="6.9" height="2.7" rx=".5" fill="#000"
-            transform="rotate(-10 8.3 12.2)"/>
+    <!-- Шлем третьего уровня в три четверти. Нарисован в сетке 100×100 и
+         ужат до 24 — так проще держать пропорции. Швы между бронеплитами
+         и смотровая щель вырезаны маской, а не залиты цветом: на цветной
+         плитке заливка выдала бы себя прямоугольником чужого оттенка. -->
+    <mask id="m-pubg" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+      <rect width="100" height="100" fill="#000"/>
+      <ellipse cx="52" cy="42" rx="34" ry="34" fill="#fff"/>
+      <path fill="#fff" d="M30 26 12 40c-5 4-6 10-4 16l6 20c2 6 7 9 13 9h20c7 0 12-5 12-12V38z"/>
+      <path fill="#fff" d="M70 58l13 5-4 21-14-4z"/>
+      <path fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"
+            d="M32 28C23 35 18 43 17 52"/>
+      <rect x="16" y="42" width="34" height="13" rx="3" fill="#000"
+            transform="rotate(-8 33 48)"/>
+      <path fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round"
+            d="M19 64C29 70 40 72 52 70"/>
     </mask>
-    <g id="i-pubg"><rect width="24" height="24" mask="url(#m-pubg)"/></g>
+    <g id="i-pubg" transform="scale(.24)"><rect width="100" height="100" mask="url(#m-pubg)"/></g>
     <g id="i-out"><path d="M8 16 16 8M9.5 8H16v6.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></g>
     <g id="i-card"><path d="M5 6h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm0 4h14M8 14h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
     <g id="i-copy"><path d="M9 9V6.5A1.5 1.5 0 0 1 10.5 5h7A1.5 1.5 0 0 1 19 6.5v7a1.5 1.5 0 0 1-1.5 1.5H15M6.5 9h7A1.5 1.5 0 0 1 15 10.5v7A1.5 1.5 0 0 1 13.5 19h-7A1.5 1.5 0 0 1 5 17.5v-7A1.5 1.5 0 0 1 6.5 9z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></g>
     <g id="i-check"><path d="M5 12.5 10 17.5 19 7" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <g id="i-lock"><path d="M8 10V7.5a4 4 0 0 1 8 0V10M6.6 10h10.8a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H6.6a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></g>
     <g id="i-x"><path d="M7 7l10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></g>
   </defs>
 </svg>

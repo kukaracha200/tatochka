@@ -101,25 +101,28 @@
     start();
   }
 
-  /* ═══ карточка PUBG ═══ */
-  var modal = document.getElementById('pubg');
+  /* ═══ карточки ═══ */
   var opener = null;
 
-  function openModal() {
+  function openModal(id) {
+    var m = document.getElementById(id);
+    if (!m) return;
     opener = document.activeElement;
-    modal.hidden = false;
+    m.hidden = false;
     document.body.style.overflow = 'hidden';
-    var x = modal.querySelector('.modal__x');
+    var x = m.querySelector('.modal__x');
     if (x) x.focus();
   }
   function closeModal() {
-    modal.hidden = true;
+    var open = document.querySelectorAll('.modal:not([hidden])');
+    for (var i = 0; i < open.length; i++) open[i].hidden = true;
     document.body.style.overflow = '';
     if (opener && opener.focus) opener.focus();
   }
 
   document.addEventListener('click', function (e) {
-    if (e.target.closest('[data-open="pubg"]')) { openModal(); return; }
+    var op = e.target.closest('[data-open]');
+    if (op) { openModal(op.dataset.open); return; }
     if (e.target.closest('[data-close]')) { closeModal(); return; }
 
     var btn = e.target.closest('[data-copy]');
@@ -156,7 +159,7 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !modal.hidden) closeModal();
+    if (e.key === 'Escape') closeModal();
   });
 
   /* Clipboard API живёт только в защищённом контексте, а встроенные
