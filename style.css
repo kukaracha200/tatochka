@@ -1,5 +1,6 @@
 /* ═══════════════ токены ═══════════════ */
 :root{
+  color-scheme:light;
   /* ровно тот же цвет запечён в фон видео — снят с декодированного кадра */
   --mint:#E6F5F3;
   --ink:#0C3D42;
@@ -20,7 +21,7 @@
 
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;background:#D8F2F0}
+html{-webkit-text-size-adjust:100%;background:#D8F2F0;color-scheme:light}
 
 body{
   background:#D8F2F0;
@@ -291,3 +292,30 @@ body.is-settled .stage{display:none}
   background:var(--ink);color:#fff;font:inherit;font-size:14px;font-weight:600;
 }
 .modal__ok:active{background:#0A3237}
+
+
+/* ═══════════════ только светлая тема ═══════════════
+   Часть браузеров — в первую очередь Chrome на андроиде с принудительным
+   тёмным режимом — выворачивает цвета у страниц, которые не заявили схему
+   явно. Здесь вся затея держится на светлой палитре, поэтому повторяем
+   её и под тёмной системной темой: тогда выворачивать нечего. */
+@media (prefers-color-scheme:dark){
+  :root{
+    color-scheme:light;
+    --mint:#E6F5F3;
+    --ink:#0C3D42;
+    --sub:#4E7C82;
+    --teal:#0B7C7A;
+    --glass:rgba(255,255,255,.26);
+    --edge:rgba(255,255,255,.8);
+  }
+  html,body{background:#D8F2F0;color:var(--ink)}
+  .tile--cards{background:rgba(255,209,228,.34)}
+  .tile--chat{background:rgba(206,245,242,.36)}
+  .tile--tt{background:rgba(183,236,232,.36)}
+  .tile--pubg{background:rgba(255,190,216,.34)}
+  .tile--tg{background:rgba(12,61,66,.84);color:#fff}
+  .modal__card{background:rgba(255,255,255,.72)}
+  .row{background:rgba(255,255,255,.6)}
+  .row__copy,.modal__ok{background:var(--ink);color:#fff}
+}
