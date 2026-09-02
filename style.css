@@ -106,9 +106,9 @@ body.is-settled .stage{display:none}
 
 /* ═══════════════ фото ═══════════════
    низ кадра растворяется в фоне страницы — стыка не видно */
-.hero{position:relative;margin-bottom:8px}
+.hero{position:relative;flex:1 1 auto;min-height:min(44dvh,380px);margin-bottom:8px}
 .hero__photo{
-  height:min(44dvh,380px);
+  position:absolute;inset:0;
   background:
     url("assets/hero.jpg") center 22% / cover no-repeat,
     linear-gradient(168deg,#7FCDC6 0%,#B9C7D6 38%,#EFC4D3 68%,#D6EDE7 100%);
@@ -139,7 +139,11 @@ body.is-settled .stage{display:none}
 }
 
 /* ═══════════════ страница ═══════════════ */
-.page{width:min(100%,460px);margin:0 auto;padding:0 0 calc(env(safe-area-inset-bottom,0px) + 20px)}
+.page{
+  width:min(100%,460px);margin:0 auto;
+  min-height:100dvh;display:flex;flex-direction:column;
+  padding:0 0 calc(env(safe-area-inset-bottom,0px) + 20px);
+}
 
 /* ═══════════════ бенто ═══════════════ */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 var(--pad)}
