@@ -193,6 +193,12 @@ body.is-settled .stage{display:none}
   font-size:9.5px;letter-spacing:.13em;
   color:rgba(12,61,66,.28);
 }
+.credit a{
+  color:rgba(11,124,122,.62);font-weight:600;
+  border-bottom:1px solid rgba(11,124,122,.22);
+  padding-bottom:1px;
+}
+.credit a:active{color:var(--teal)}
 
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;animation-iteration-count:1 !important;
